@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Библиотека Librusec</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/jstree/themes/default/style.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/jstree/jstree.min.js"></script>
+  <style>
+  	.cover {
+  		float: left;
+  		margin: 0px 30px 0px 50px;
+  	}
+
+  	.description {
+  		height: 300px;
+  		max-width: 1500px;
+  	}
+
+  	.base {
+  		
+  	}
+  </style>
+</head>
+<body>
+	<div >
+		<div class="row">
+			<div class="col-md-2">
+				<a href="/"><img src="images/logo.jpg" alt="logo"></a>
+			</div>
+			<div class="col-md-10 text-center pt-4">
+				<h1 class="display-3 font-weight-bold" style="margin-left:20px">Библиотека Librusec</h1>
+			</div>	
+		</div>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+			<ul class="navbar-nav">
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#GenreDlg">Жанры</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#SeriaDlg">Серии</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#AuthorDlg">Авторы</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#NameDlg">Название</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#LoadDlg">Загрузить</a>
+				</li>	
+			</ul>
+		</nav>
+	</div>
+	
+	<!-- Seria dialog -->
+	<div th:replace="fragments/general.html :: seriaDlgFragment"></div>
+
+	<!-- Author dialog -->
+	<div th:replace="fragments/general.html :: authorDlgFragment"></div>
+
+	<!-- Name dialog -->
+	<div th:replace="fragments/general.html :: nameDlgFragment"></div>
+
+	<!-- Genre dialog -->
+	<div th:replace="fragments/general.html :: genreDlgFragment"></div>
+	
+	<!-- Load dialog -->
+	<div th:replace="fragments/general.html :: loadDlgFragment"></div>
+
+	<div class="row ml-3">
+		<h1 class="display-4" th:text="${book.getTitle()}">название</h1>
+	</div>
+	
+	<div class="description">
+		<img class="cover" th:src="@{'data:image/jpeg;base64,'+${encodeImage}}" alt="cover" height="300px">
+		<p th:text="${description}">Lorem, ipsum dolor</p>
+	</div>
+
+	<div class="container-sm pt-4">
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Автор</td>
+					<td>
+						<span th:each="author, iterStat : ${book.getAuthors()}">
+							<a th:text="${author.getFullName()}" th:href="@{/books(author=${author.getId()})}">Карсак Ф.</a>
+							<span th:text="!${iterStat.last} ? ', '" ></span>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Серия</td> 
+					<td>
+						<a th:href="@{/books(seria=${book.getSeria()?.getId()})}" th:text="${book.getSeria()?.getName()}">Чужие миры</a>
+						<span th:text="(${book.getSeriaNum()} != null) ? '(' + ${book.getSeriaNum()} + ')'">
+					</td>
+				</tr>
+				<tr>
+					<td>Жанры</td>
+					<td>
+						<span th:each="genre, iterStat : ${book.getGenres()}">
+							<a th:text="${genre.getName()}" th:href="@{/books(genre=${genre.getId()})}">123</a>
+							<span th:text="!${iterStat.last} ? ', '" ></span>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>Дата добавления</td>
+					<td th:text="${book.getFormattedAdditionDate()}">дата</td>
+				</tr>
+				<tr>
+					<td>Архив</td>
+					<td th:text="${book.getArchiveName()}">fb2-701300-703385.zip</td>
+				</tr>
+				<tr>
+					<td>Имя файла</td>
+					<td th:text="${book.getFilename()}">703313.fb2</td>
+				</tr>
+				<tr>
+					<td>Язык книги</td>
+					<td th:text="${book.getLanguage()}">123</td>
+				</tr>
+				<tr>
+					<td>Удален</td>
+					<td th:text="(${book.getIsDeleted()} == 1) ? 'Да' : 'Нет'">123</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+	<script th:replace="fragments/general.html :: scriptFragment"></script>
+</body>
+</html>

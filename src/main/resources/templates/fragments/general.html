@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head th:fragment="headerFragment">
+  <title>Библиотека Librusec</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:fragment="menuFragment">
+		<div class="row">
+			<div class="col-md-2">
+				<img src="books/images/logo.jpg" alt="logo">
+			</div>
+			<div class="col-md-10 text-center pt-4">
+				<h1 class="display-3 font-weight-bold" style="margin-left:20px">Библиотека Librusec</h1>
+			</div>	
+		</div>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+			<ul class="navbar-nav">
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#GenreDlg">Жанры</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#SeriaDlg">Серии</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#AuthorDlg">Авторы</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#NameDlg">Название</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#LoadDlg">Загрузить</a>
+				</li>	
+			</ul>
+		</nav>
+	</div>	
+<!-- Seria dialog -->
+<div class="modal fade" id="SeriaDlg" th:fragment="seriaDlgFragment">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+    
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h5 class="modal-title">Поиск</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+	      
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="ser">Серия:</label>
+					<input type="text" class="form-control" id="ser" name="seria">
+				</div>
+			</div>
+	      
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Искать</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Author dialog -->
+<div class="modal fade" id="AuthorDlg" th:fragment="authorDlgFragment">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h5 class="modal-title">Поиск</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+	        
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="authId">Автор:</label>
+					<input type="text" class="form-control" id="authId" name="author">
+				</div>
+			</div>
+	        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Искать</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="GenreDlg" th:fragment="genreDlgFragment">
+	<div class="modal-dialog">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h5 class="modal-title">Поиск</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body" height="500px">
+				<div class="form-group">
+					<label for="nameId">Жанр:</label>
+					<div id="genreTree"></div>
+				</div>
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Искать</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
+
+
+<!-- Name dialog -->
+<div class="modal fade" id="NameDlg" th:fragment="nameDlgFragment">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+    
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h5 class="modal-title">Поиск</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+      
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="nameId">Название:</label>
+					<input type="text" class="form-control" id="nameId" name="name">
+				</div>
+			</div>
+      
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Искать</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="LoadDlg" th:fragment="loadDlgFragment">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form method="post" action="/" id="form">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title">Загрузить список</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	
+				<!-- Modal body -->
+				<div class="modal-body">
+					<p>Файл:</p>
+					<div class="custom-file mb-3">
+						<input enctype="multipart/form-data" type="file" class="custom-file-input" id="filenameId" name="filenameName">
+						<label class="custom-file-label" for="filename1">Выберите файл</label>
+					</div>
+				</div>
+	
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Загрузить</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="container-fluid pt-4">
+	<h3 th:if="${author != null}" th:text="'Автор: ' + ${author.getFullName()}">Автор:</h3>
+	<h3 th:if="${seria != null}" th:text="'Серия: ' + ${seria.getName()}">Серия:</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th width="30%">Автор(ы)</th>
+				<th width="30%">Название</th>
+				<th width="20%"><a th:href="'books?' + ${sortSeriaLink}">Серия</a><img th:src="${sortSeriaImage}"></th>
+				<th>Номер</th>
+				<th><a th:href="'books?' + ${sortDateLink}">Дата добавления</a><img th:src="${sortDateImage}"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="book : ${books}">
+				<td>
+					<span th:each="author, iterStat : ${book.getAuthors()}">
+						<a th:text="${author.getFullName()}" th:href="@{/books(author=${author.getId()})}">author</a>
+						<span th:text="!${iterStat.last} ? ', '" ></span>
+					</span>
+				</td>
+				<td><a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getTitle()}">title</a></td>
+				<td><a th:href="@{/books(seria=${book.getSeria()?.getId()})}" th:text="${book.getSeria()?.getName()}">Seria</a></td>
+				<td th:text="${book.getSeriaNum()}">123</td>
+				<td th:text="${book.getFormattedAdditionDate()}">11.06.1992</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript" th:inline="javascript" th:fragment="scriptFragment">
+
+    let genreCollection = [[${genreCollection}]];
+    let fileName;
+
+
+    $("#SeriaDlg .btn-primary").on("click", function(e) {
+        $("#SeriaDlg").modal('hide');     // dismiss the dialog
+		$(location).attr('href', '/series?name=' + $("#ser").val());
+    });
+    
+    $("#AuthorDlg .btn-primary").on("click", function(e) {
+        $("#AuthorDlg").modal("hide");     // dismiss the dialog
+		$(location).attr('href', '/authors?name=' + $("#authId").val());
+    });
+	
+    $("#NameDlg .btn-primary").on("click", function(e) {
+        $("#NameDlg").modal("hide");     // dismiss the dialog
+		$(location).attr("href", "/books?name=" + $("#nameId").val());
+    });
+    
+	$("#GenreDlg .btn-primary").on("click", function(e) {
+		$("GenreDlg").modal("hide");
+		$(location).attr("href", "/books?genre=" + $("#genreTree").jstree().get_selected(false)[0]);
+	});
+	
+	$("#filenameId").on("change", function() {
+		fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+	
+	$("#LoadLink").on("click", function() {
+		fileName = "";
+		$("#filenameId").siblings(".custom-file-label").html("Выберите файл");
+		$("#filenameId").val("");
+	})
+	
+	$("form").on("submit", formSend);
+	
+	async function formSend(e) {
+		e.preventDefault();
+		console.log(fileName);
+		let formData = new FormData(form);
+		formData.append("filename", fileName);
+		
+		let response = await fetch("/", {
+			method: 'POST',
+			body: formData
+		});
+		$("#LoadDlg").modal("hide");
+	}
+
+    $('#genreTree').jstree({
+    	'core' : {
+			'data' : genreCollection
+		}
+    });
+</script>	
+</body>
+</html>

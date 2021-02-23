@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Библиотека Librusec</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/jstree/themes/default/style.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/jstree/jstree.min.js"></script>
+  <style>
+  	.info {
+  		margin: 0 0 0 80px;
+  	}
+
+  	.info h3 {
+  		margin: 20px 0 25px 0;
+  	}
+
+  	.info div {
+  		margin: 0 0 7px 0;
+  	}
+  	}
+  </style>
+</head>
+<body>
+	<div >
+		<div class="row">
+			<div class="col-md-2">
+				<img src="books/images/logo.jpg" alt="logo">
+			</div>
+			<div class="col-md-10 text-center pt-4">
+				<h1 class="display-3 font-weight-bold" style="margin-left:20px">Библиотека Librusec</h1>
+			</div>	
+		</div>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+			<ul class="navbar-nav">
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#GenreDlg">Жанры</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#SeriaDlg">Серии</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#AuthorDlg">Авторы</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#NameDlg">Название</a>
+				</li>	
+				<li class="nav-item active ml-3">
+					<a class="nav-link" data-toggle="modal" href="#LoadDlg" id="LoadLink">Загрузить</a>
+				</li>	
+			</ul>
+		</nav>
+	</div>	
+
+	<!-- Seria dialog -->
+	<div th:replace="fragments/general.html :: seriaDlgFragment"></div>
+
+	<!-- Author dialog -->
+	<div th:replace="fragments/general.html :: authorDlgFragment"></div>
+
+	<!-- Name dialog -->
+	<div th:replace="fragments/general.html :: nameDlgFragment"></div>
+
+	<!-- Genre dialog -->
+	<div th:replace="fragments/general.html :: genreDlgFragment"></div>
+	
+	<!-- Load dialog -->
+	<div th:replace="fragments/general.html :: loadDlgFragment"></div>
+	
+	<div class="info">
+		<h3>Статистика библиотеки</h3>
+		<div th:text="'Загружено книг: ' + ${booksCount}">Загружено книг: 99</div>
+		<div th:text="'Количество авторов: ' + ${authorsCount}">Количество авторов: 99</div>
+		<div th:text="'Количество серий: ' + ${seriesCount}">Количество серий: 99</div>
+	</div>	
+
+	<script th:replace="fragments/general.html :: scriptFragment"></script>
+</body>
+</html>

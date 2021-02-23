@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Библиотека Librusec</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/jstree/themes/default/style.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/jstree/jstree.min.js"></script>
+</head>
+<body>
+	<div th:replace="fragments/general.html :: menuFragment"></div>
+
+	<!-- Seria dialog -->
+	<div th:replace="fragments/general.html :: seriaDlgFragment"></div>
+
+	<!-- Author dialog -->
+	<div th:replace="fragments/general.html :: authorDlgFragment"></div>
+
+	<!-- Name dialog -->
+	<div th:replace="fragments/general.html :: nameDlgFragment"></div>
+
+	<!-- Genre dialog -->
+	<div th:replace="fragments/general.html :: genreDlgFragment"></div>
+
+	<!-- Load dialog -->
+	<div th:replace="fragments/general.html :: loadDlgFragment"></div>
+
+	<div class="container-fluid pt-4">
+		<h3 th:if="${author != null}" th:text="'Автор: ' + ${author.getFullName()}">Автор:</h3>
+		<h3 th:if="${seria != null}" th:text="'Серия: ' + ${seria.getName()}">Серия:</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th width="30%">Автор(ы)</th>
+					<th width="30%">Название</th>
+					<th width="20%"><a th:href="'books?' + ${sortSeriaLink}">Серия</a><img th:src="${sortSeriaImage}"></th>
+					<th>Номер</th>
+					<th><a th:href="'books?' + ${sortDateLink}">Дата добавления</a><img th:src="${sortDateImage}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${books}">
+					<td>
+						<span th:each="author, iterStat : ${book.getAuthors()}">
+							<a th:text="${author.getFullName()}" th:href="@{/books(author=${author.getId()})}">author</a>
+							<span th:text="!${iterStat.last} ? ', '" ></span>
+						</span>
+					</td>
+					<td><a th:href="@{books/{id}(id=${book.getId()})}" th:text="${book.getTitle()}">title</a></td>
+					<td><a th:href="@{/books(seria=${book.getSeria()?.getId()})}" th:text="${book.getSeria()?.getName()}">Seria</a></td>
+					<td th:text="${book.getSeriaNum()}">123</td>
+					<td th:text="${book.getFormattedAdditionDate()}">11.06.1992</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script th:replace="fragments/general.html :: scriptFragment"></script>	
+</body>
+</html>
