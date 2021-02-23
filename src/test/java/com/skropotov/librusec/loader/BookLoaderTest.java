@@ -53,7 +53,7 @@ public class BookLoaderTest {
 	
 	@Test
 	public void TestLoadBooks() {
-		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaŚwiaty Pilipiuka670130011586897013000fb22020-09-03pl";
+		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaSwiaty Pilipiuka670130011586897013000fb22020-09-03pl";
 		MockMultipartFile file = new MockMultipartFile("filenameName", "123.txt", MediaType.TEXT_PLAIN_VALUE, bookDescription.getBytes());
 
 		List<BookInfo> books = bookLoader.parseFileDescription("fb2-701300-703385.inp", file);
@@ -64,7 +64,7 @@ public class BookLoaderTest {
 		assertEquals(1158689, books.get(0).getBookSize());
 		assertEquals("pl", books.get(0).getLanguage());
 		assertEquals("701300.fb2", books.get(0).getFilename());
-		assertEquals("Światy Pilipiuka", books.get(0).getSeria());
+		assertEquals("Swiaty Pilipiuka", books.get(0).getSeria());
 		assertEquals(1, books.get(0).getGenres().length);
 		assertEquals("sf", books.get(0).getGenres()[0]);
 		assertEquals(1, books.get(0).getAuthors().length);
@@ -73,7 +73,7 @@ public class BookLoaderTest {
 
 	@Test
 	public void TestLoadNonExistBook() {
-		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaŚwiaty Pilipiuka670130011586897013000fb22020-09-03pl";
+		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaSwiaty Pilipiuka670130011586897013000fb22020-09-03pl";
 		MockMultipartFile file = new MockMultipartFile("filenameName", "123.txt", MediaType.TEXT_PLAIN_VALUE, bookDescription.getBytes());
 
 		List<BookInfo> books = bookLoader.parseFileDescription("123.inp", file);
@@ -82,7 +82,7 @@ public class BookLoaderTest {
 	
 	@Test
 	public void TestLoadBookWithoutLanguage() {
-		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaŚwiaty Pilipiuka670130011586897013000fb22020-09-03";
+		String bookDescription = "Пилипюк,Анджей,:sf:Carska ManierkaSwiaty Pilipiuka670130011586897013000fb22020-09-03";
 		MockMultipartFile file = new MockMultipartFile("filenameName", "123.txt", MediaType.TEXT_PLAIN_VALUE, bookDescription.getBytes());
 
 		List<BookInfo> books = bookLoader.parseFileDescription("fb2-701300-703385.inp", file);
@@ -92,7 +92,7 @@ public class BookLoaderTest {
 		assertEquals(1158689, books.get(0).getBookSize());
 		assertEquals("", books.get(0).getLanguage());
 		assertEquals("701300.fb2", books.get(0).getFilename());
-		assertEquals("Światy Pilipiuka", books.get(0).getSeria());
+		assertEquals("Swiaty Pilipiuka", books.get(0).getSeria());
 		assertEquals(1, books.get(0).getGenres().length);
 		assertEquals("sf", books.get(0).getGenres()[0]);
 		assertEquals(1, books.get(0).getAuthors().length);

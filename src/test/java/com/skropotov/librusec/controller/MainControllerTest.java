@@ -32,6 +32,7 @@ import com.skropotov.librusec.controller.tree.GenreTree;
 import com.skropotov.librusec.loader.AuthorInfo;
 import com.skropotov.librusec.loader.BookInfo;
 import com.skropotov.librusec.loader.BookLoader;
+import com.skropotov.librusec.model.Book;
 import com.skropotov.librusec.model.Genre;
 import com.skropotov.librusec.model.repository.AuthorRepository;
 import com.skropotov.librusec.model.repository.BookRepository;
@@ -91,7 +92,7 @@ public class MainControllerTest {
 		BookInfo book2 = new BookInfo("name2", "arch2", "filename2", "", null, new Date(), false, "ru", new String[] {}, new AuthorInfo[] {}, 300 );
 		
 		when(bookLoader.parseFileDescription("123.txt", file)).thenReturn(Arrays.asList(book1, book2));
-		doNothing().when(bookLoader).saveBook(Mockito.any());
+		when(bookLoader.saveBook(Mockito.any())).thenReturn(new Book());
 		
 		mockMvc.perform(multipart("/").file(file).param("filename", "123.txt"))
 			.andDo(print())
