@@ -1,7 +1,5 @@
 package com.skropotov.librusec.controller.tree;
 
-import com.skropotov.librusec.model.Seria;
-
 public class GenreTree {
 	private String id;
 	private String parent;
