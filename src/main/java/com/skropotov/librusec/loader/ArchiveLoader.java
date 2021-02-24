@@ -43,7 +43,7 @@ public class ArchiveLoader {
 				while(e.hasMoreElements()) {
 					ZipEntry entry = (ZipEntry)e.nextElement();
 				 
-					if(entry.getName().toLowerCase().indexOf(filename) != -1) {
+					if(entry.getName().toLowerCase().equals(filename)) {
 						return true;
 					}
 					
